@@ -13,6 +13,13 @@ const SearchValidationSchema = zod.object({
 })
 type SearchFormData = zod.infer<typeof SearchValidationSchema>
 
+interface IssueData {
+  number: string
+  title: string
+  body: string
+  created_at: string
+}
+
 export function Home() {
   const newSearch = useForm<SearchFormData>({
     resolver: zodResolver(SearchValidationSchema),
@@ -20,7 +27,7 @@ export function Home() {
   })
   const { handleSubmit } = newSearch
 
-  const [issues, setIssues] = useState([])
+  const [issues, setIssues] = useState<IssueData[]>([])
 
   const responseAll = async () => {
     const issuesApi = await api.get('search/issues', {
@@ -28,7 +35,6 @@ export function Home() {
         q: 'repo:gdrbacca/03-github-blog',
       },
     })
-
     // console.log(issuesApi.data.items[0])
     setIssues(issuesApi.data.items)
   }

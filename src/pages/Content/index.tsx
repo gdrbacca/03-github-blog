@@ -6,10 +6,23 @@ import { useEffect, useState } from 'react'
 import { formatDistanceToNow } from 'date-fns'
 import ptBr from 'date-fns/locale/pt-BR'
 
+interface InfoHeaderData {
+  title: string
+  comments: string
+  html_url: string
+  body: string
+}
+
+interface UsuarioData {
+  login: string
+}
+
 export function Content() {
   const params = useParams()
-  const [infoHeader, setInfoHeader] = useState({})
-  const [usuario, setUsuario] = useState({})
+  const [infoHeader, setInfoHeader] = useState<InfoHeaderData>(
+    {} as InfoHeaderData,
+  )
+  const [usuario, setUsuario] = useState<UsuarioData>({} as UsuarioData)
   const [state, setState] = useState('')
   const [error, setError] = useState(false)
   const [data, setData] = useState('')
@@ -47,7 +60,7 @@ export function Content() {
       )
     } */
 
-    const infoUser = await api
+    await api
       .get('users/gdrbacca')
       .then((res) => {
         setState('success')

@@ -15,8 +15,17 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { api } from '../../../lib/axios'
 import { useEffect, useState } from 'react'
 
+interface ProfileData {
+  avatar_url: string
+  name: string
+  bio: string
+  login: string
+  company: string
+  followers: string
+}
+
 export function Profile() {
-  const [user, setUser] = useState({})
+  const [user, setUser] = useState<ProfileData>({} as ProfileData)
   const response = async () => {
     const usuario = await api.get('users/gdrbacca')
     setUser(usuario.data)
