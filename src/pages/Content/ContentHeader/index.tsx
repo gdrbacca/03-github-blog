@@ -11,6 +11,7 @@ import {
   faCalendar,
 } from '@fortawesome/free-solid-svg-icons'
 import { faGithub } from '@fortawesome/free-brands-svg-icons'
+import { NavLink } from 'react-router-dom'
 
 interface ContentHeaderProps {
   titulo: string
@@ -26,10 +27,10 @@ export function ContentHeader(props: ContentHeaderProps) {
   return (
     <ContentHeaderContainer>
       <ContentHeaderLinks>
-        <a href="/">
+        <NavLink to="/">
           {' '}
           <FontAwesomeIcon icon={faChevronLeft} /> VOLTAR
-        </a>
+        </NavLink>
         <a href={props.url} target="_blank" rel="noreferrer">
           VER NO GITHUB <FontAwesomeIcon icon={faArrowUpRightFromSquare} />
         </a>

@@ -9,7 +9,7 @@ import { useEffect, useState } from 'react'
 import { api } from '../../lib/axios'
 
 const SearchValidationSchema = zod.object({
-  search: zod.string().min(4, { message: 'Informar ao menos 4 caracteres' }),
+  search: zod.string(),
 })
 type SearchFormData = zod.infer<typeof SearchValidationSchema>
 
@@ -38,13 +38,18 @@ export function Home() {
   }, [])
 
   const responseSearch = async (data: SearchFormData) => {
-    const issuesApi = await api.get('search/issues', {
-      params: {
-        q: data.search + ' repo:gdrbacca/03-github-blog',
-      },
-    })
-    // console.log(issuesApi.data)
-    setIssues(issuesApi.data.items)
+    if (data.search === '') {
+      console.log('vazio')
+      responseAll()
+    } else {
+      const issuesApi = await api.get('search/issues', {
+        params: {
+          q: data.search + ' repo:gdrbacca/03-github-blog',
+        },
+      })
+      // console.log(issuesApi.data)
+      setIssues(issuesApi.data.items)
+    }
   }
 
   function submit(data: SearchFormData) {
